@@ -35,7 +35,7 @@ class OrderService
 
             $quantity = (int) $quantity;
 
-            if ($quantity < 1) {
+            if ($quantity < 1 || $quantity > 100) {
                 continue;
             }
 

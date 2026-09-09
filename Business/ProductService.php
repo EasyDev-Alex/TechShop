@@ -18,6 +18,12 @@ class ProductService
 
     public function getProductById($id)
     {
+        $id = (int) $id;
+
+        if ($id <= 0) {
+            return false;
+        }
+
         return $this->productRepository->getProductById($id);
     }
 
@@ -88,7 +94,15 @@ class ProductService
 
     public function deleteProduct($id)
     {
+        $id = (int) $id;
+
+        if ($id <= 0) {
+            return false;
+        }
+
         $this->productRepository->deleteProduct($id);
+
+        return true;
     }
 }
 

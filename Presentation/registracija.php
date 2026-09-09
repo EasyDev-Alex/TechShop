@@ -20,6 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($result === "success") {
         $message = "Registracija je uspešna!";
+        header("Location: login.php");
+        exit;
+        
     } else {
         $message = $result;
     }
@@ -35,15 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <title>TechShop - Registracija</title>
 
@@ -52,15 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body class="bg-light">
 
-    <div
-        class="container d-flex align-items-center justify-content-center"
-        style="min-height: 100vh;"
-    >
+    <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
 
-        <div
-            class="card shadow"
-            style="width: 100%; max-width: 500px;"
-        >
+        <div class="card shadow" style="width: 100%; max-width: 500px;">
 
             <div class="card-body p-4">
 
@@ -108,68 +99,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     <div class="mb-3">
 
-                        <label
-                            for="username"
-                            class="form-label"
-                        >
+                        <label for="username" class="form-label">
                             Korisničko ime
                         </label>
 
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="username"
-                            name="username"
-                            required
-                        >
+                        <input type="text" class="form-control" id="username" name="username" required>
 
                     </div>
 
 
                     <div class="mb-3">
 
-                        <label
-                            for="email"
-                            class="form-label"
-                        >
+                        <label for="email" class="form-label">
                             Email
                         </label>
 
-                        <input
-                            type="email"
-                            class="form-control"
-                            id="email"
-                            name="email"
-                            required
-                        >
+                        <input type="email" class="form-control" id="email" name="email" required>
 
                     </div>
 
 
                     <div class="mb-4">
 
-                        <label
-                            for="password"
-                            class="form-label"
-                        >
+                        <label for="password" class="form-label">
                             Lozinka
                         </label>
 
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="password"
-                            name="password"
-                            required
-                        >
+                        <input type="password" class="form-control" id="password" name="password" required>
 
                     </div>
 
 
-                    <button
-                        type="submit"
-                        class="btn btn-dark w-100"
-                    >
+                    <button type="submit" class="btn btn-dark w-100">
                         Registruj se
                     </button>
 

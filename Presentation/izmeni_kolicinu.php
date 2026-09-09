@@ -20,6 +20,10 @@ if ($quantity < 1) {
     $quantity = 1;
 }
 
+if ($quantity > 100) {
+    $quantity = 100;
+}
+
 if (!isset($_SESSION["cart"])) {
     $_SESSION["cart"] = [];
 }

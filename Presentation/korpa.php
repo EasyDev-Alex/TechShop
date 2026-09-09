@@ -45,15 +45,9 @@ foreach ($cart as $productId => $quantity) {
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <title>TechShop - Korpa</title>
 
@@ -63,356 +57,304 @@ foreach ($cart as $productId => $quantity) {
 <body class="bg-light">
 
 
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
 
-    <div class="container">
+        <div class="container">
 
-        <a
-            class="navbar-brand fw-bold"
-            href="proizvodi.php"
-        >
-            TechShop
-        </a>
-
-
-        <div class="navbar-nav ms-auto">
-
-            <a
-                class="nav-link"
-                href="proizvodi.php"
-            >
-                Proizvodi
+            <a class="navbar-brand fw-bold" href="proizvodi.php">
+                TechShop
             </a>
 
-            <a
-                class="nav-link active"
-                href="korpa.php"
-            >
-                🛒 Korpa
-            </a>
 
-            <a
-                class="nav-link"
-                href="moje_porudzbine.php"
-            >
-                Moje porudžbine
-            </a>
+            <div class="navbar-nav ms-auto">
 
-            <a
-                class="nav-link"
-                href="logout.php"
-            >
-                Odjavi se
-            </a>
+                <a class="nav-link" href="proizvodi.php">
+                    Proizvodi
+                </a>
 
-        </div>
+                <a class="nav-link active" href="korpa.php">
+                    🛒 Korpa
+                </a>
 
-    </div>
+                <a class="nav-link" href="moje_porudzbine.php">
+                    Moje porudžbine
+                </a>
 
-</nav>
-
-
-<div class="container py-5">
-
-
-    <div class="mb-4">
-
-        <h1 class="h2">
-
-            🛒 Vaša korpa
-
-        </h1>
-
-        <p class="text-muted">
-
-            Korisnik:
-            <?php echo htmlspecialchars($_SESSION["username"]); ?>
-
-        </p>
-
-    </div>
-
-
-    <?php if (empty($cartProducts)): ?>
-
-
-        <div class="card shadow-sm">
-
-            <div class="card-body text-center p-5">
-
-                <h3>
-                    Vaša korpa je prazna
-                </h3>
-
-                <p class="text-muted">
-
-                    Dodajte proizvode da biste nastavili kupovinu.
-
-                </p>
-
-                <a
-                    href="proizvodi.php"
-                    class="btn btn-dark mt-3"
-                >
-                    Pogledaj proizvode
+                <a class="nav-link" href="logout.php">
+                    Odjavi se
                 </a>
 
             </div>
 
         </div>
 
+    </nav>
 
-    <?php else: ?>
 
+    <div class="container py-5">
 
-        <div class="card shadow-sm">
 
-            <div class="card-body p-0">
+        <div class="mb-4">
 
+            <h1 class="h2">
 
-                <div class="table-responsive">
+                🛒 Vaša korpa
 
-                    <table class="table table-hover mb-0">
+            </h1>
 
-                        <thead class="table-dark">
+            <p class="text-muted">
 
-                            <tr>
+                Korisnik:
+                <?php echo htmlspecialchars($_SESSION["username"]); ?>
 
-                                <th>
-                                    Proizvod
-                                </th>
+            </p>
 
-                                <th>
-                                    Cena
-                                </th>
+        </div>
 
-                                <th>
-                                    Količina
-                                </th>
 
-                                <th>
-                                    Ukupno
-                                </th>
+        <?php if (empty($cartProducts)): ?>
 
-                                <th>
-                                    Akcija
-                                </th>
 
-                            </tr>
+            <div class="card shadow-sm">
 
-                        </thead>
+                <div class="card-body text-center p-5">
 
+                    <h3>
+                        Vaša korpa je prazna
+                    </h3>
 
-                        <tbody>
+                    <p class="text-muted">
 
+                        Dodajte proizvode da biste nastavili kupovinu.
 
-                        <?php foreach ($cartProducts as $item): ?>
+                    </p>
 
-
-                            <tr>
-
-
-                                <td class="fw-semibold">
-
-                                    <?php
-                                    echo htmlspecialchars(
-                                        $item["product"]["name"]
-                                    );
-                                    ?>
-
-                                </td>
-
-
-                                <td>
-
-                                    <?php
-                                    echo number_format(
-                                        $item["product"]["price"],
-                                        2,
-                                        ",",
-                                        "."
-                                    );
-                                    ?>
-
-                                    RSD
-
-                                </td>
-
-
-                                <td>
-
-
-                                    <form
-                                        method="POST"
-                                        action="izmeni_kolicinu.php"
-                                        class="d-flex gap-2"
-                                    >
-
-
-                                        <input
-                                            type="hidden"
-                                            name="product_id"
-                                            value="<?php
-                                            echo $item["product"]["id"];
-                                            ?>"
-                                        >
-
-
-                                        <input
-                                            type="number"
-                                            name="quantity"
-                                            value="<?php
-                                            echo $item["quantity"];
-                                            ?>"
-                                            min="1"
-                                            required
-                                            class="form-control"
-                                            style="width: 80px;"
-                                        >
-
-
-                                        <button
-                                            type="submit"
-                                            class="btn btn-outline-dark btn-sm"
-                                        >
-                                            Izmeni
-                                        </button>
-
-
-                                    </form>
-
-
-                                </td>
-
-
-                                <td class="fw-semibold">
-
-
-                                    <?php
-                                    echo number_format(
-                                        $item["subtotal"],
-                                        2,
-                                        ",",
-                                        "."
-                                    );
-                                    ?>
-
-                                    RSD
-
-
-                                </td>
-
-
-                                <td>
-
-
-                                    <form
-                                        method="POST"
-                                        action="ukloni_iz_korpe.php"
-                                    >
-
-
-                                        <input
-                                            type="hidden"
-                                            name="product_id"
-                                            value="<?php
-                                            echo $item["product"]["id"];
-                                            ?>"
-                                        >
-
-
-                                        <button
-                                            type="submit"
-                                            class="btn btn-outline-danger btn-sm"
-                                        >
-                                            Ukloni
-                                        </button>
-
-
-                                    </form>
-
-
-                                </td>
-
-
-                            </tr>
-
-
-                        <?php endforeach; ?>
-
-
-                        </tbody>
-
-                    </table>
+                    <a href="proizvodi.php" class="btn btn-dark mt-3">
+                        Pogledaj proizvode
+                    </a>
 
                 </div>
 
             </div>
 
-        </div>
+
+        <?php else: ?>
 
 
-        <div
-            class="card shadow-sm mt-4"
-        >
+            <div class="card shadow-sm">
 
-            <div
-                class="card-body d-flex justify-content-between align-items-center"
-            >
-
-                <h3 class="mb-0">
-
-                    Ukupna cena:
-
-                </h3>
+                <div class="card-body p-0">
 
 
-                <h3 class="mb-0 fw-bold">
+                    <div class="table-responsive">
 
-                    <?php
-                    echo number_format(
-                        $totalPrice,
-                        2,
-                        ",",
-                        "."
-                    );
-                    ?>
+                        <table class="table table-hover mb-0">
 
-                    RSD
+                            <thead class="table-dark">
 
-                </h3>
+                                <tr>
+
+                                    <th>
+                                        Proizvod
+                                    </th>
+
+                                    <th>
+                                        Cena
+                                    </th>
+
+                                    <th>
+                                        Količina
+                                    </th>
+
+                                    <th>
+                                        Ukupno
+                                    </th>
+
+                                    <th>
+                                        Akcija
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+
+                                <?php foreach ($cartProducts as $item): ?>
+
+
+                                    <tr>
+
+
+                                        <td class="fw-semibold">
+
+                                            <?php
+                                            echo htmlspecialchars(
+                                                $item["product"]["name"]
+                                            );
+                                            ?>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <?php
+                                            echo number_format(
+                                                $item["product"]["price"],
+                                                2,
+                                                ",",
+                                                "."
+                                            );
+                                            ?>
+
+                                            RSD
+
+                                        </td>
+
+
+                                        <td>
+
+
+                                            <form method="POST" action="izmeni_kolicinu.php" class="d-flex gap-2">
+
+
+                                                <input type="hidden" name="product_id" value="<?php
+                                                echo $item["product"]["id"];
+                                                ?>">
+
+
+                                                <input type="number" name="quantity" value="<?php
+                                                echo $item["quantity"];
+                                                ?>" min="1" required class="form-control" style="width: 80px;">
+
+
+                                                <button type="submit" class="btn btn-outline-dark btn-sm">
+                                                    Izmeni
+                                                </button>
+
+
+                                            </form>
+
+
+                                        </td>
+
+
+                                        <td class="fw-semibold">
+
+
+                                            <?php
+                                            echo number_format(
+                                                $item["subtotal"],
+                                                2,
+                                                ",",
+                                                "."
+                                            );
+                                            ?>
+
+                                            RSD
+
+
+                                        </td>
+
+
+                                        <td>
+
+
+                                            <form method="POST" action="ukloni_iz_korpe.php">
+
+
+                                                <input type="hidden" name="product_id" value="<?php
+                                                echo $item["product"]["id"];
+                                                ?>">
+
+
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                    Ukloni
+                                                </button>
+
+
+                                            </form>
+
+
+                                        </td>
+
+
+                                    </tr>
+
+
+                                <?php endforeach; ?>
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
 
             </div>
 
-        </div>
+
+            <div class="card shadow-sm mt-4">
+
+                <div class="card-body d-flex justify-content-between align-items-center">
+
+                    <h3 class="mb-0">
+
+                        Ukupna cena:
+
+                    </h3>
 
 
-        <div class="mt-4 d-flex justify-content-between">
+                    <h3 class="mb-0 fw-bold">
+
+                        <?php
+                        echo number_format(
+                            $totalPrice,
+                            2,
+                            ",",
+                            "."
+                        );
+                        ?>
+
+                        RSD
+
+                    </h3>
+
+                </div>
+
+            </div>
 
 
-            <a
-                href="proizvodi.php"
-                class="btn btn-outline-dark"
-            >
-                ← Nastavi kupovinu
-            </a>
+            <div class="mt-4 d-flex justify-content-between">
 
 
-            <a
-                href="porudzbina.php"
-                class="btn btn-success btn-lg"
-            >
-                Nastavi na poručivanje →
-            </a>
+                <a href="proizvodi.php" class="btn btn-outline-dark">
+                    ← Nastavi kupovinu
+                </a>
 
 
-        </div>
+                <form method="POST" action="porudzbina.php">
+
+                    <button type="submit" class="btn btn-dark"
+                        onclick="return confirm('Da li ste sigurni da želite da potvrdite porudžbinu?');">
+                        Poruči
+                    </button>
+
+                </form>
 
 
-    <?php endif; ?>
+            </div>
 
 
-</div>
+        <?php endif; ?>
+
+
+    </div>
 
 
 </body>
