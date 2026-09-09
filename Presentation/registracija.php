@@ -28,70 +28,177 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <!DOCTYPE html>
+
 <html lang="sr">
 
 <head>
+
     <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
     <title>TechShop - Registracija</title>
+
 </head>
 
-<body>
 
-<h1>TechShop</h1>
+<body class="bg-light">
 
-<h2>Registracija</h2>
-
-<?php if ($message !== ""): ?>
-
-    <p>
-        <?php echo htmlspecialchars($message); ?>
-    </p>
-
-<?php endif; ?>
-
-
-<form method="POST">
-
-    <label>Korisničko ime:</label>
-    <br>
-
-    <input
-        type="text"
-        name="username"
-        required
+    <div
+        class="container d-flex align-items-center justify-content-center"
+        style="min-height: 100vh;"
     >
 
-    <br><br>
+        <div
+            class="card shadow"
+            style="width: 100%; max-width: 500px;"
+        >
+
+            <div class="card-body p-4">
+
+                <div class="text-center mb-4">
+
+                    <h1 class="h3 fw-bold">
+                        TechShop
+                    </h1>
+
+                    <p class="text-muted">
+                        Kreirajte novi nalog
+                    </p>
+
+                </div>
 
 
-    <label>Email:</label>
-    <br>
+                <?php if (!empty($error)): ?>
 
-    <input
-        type="email"
-        name="email"
-        required
-    >
+                    <div class="alert alert-danger">
 
-    <br><br>
+                        <?php
+                        echo htmlspecialchars($error);
+                        ?>
+
+                    </div>
+
+                <?php endif; ?>
 
 
-    <label>Lozinka:</label>
-    <br>
+                <?php if (!empty($success)): ?>
 
-    <input
-        type="password"
-        name="password"
-        required
-    >
+                    <div class="alert alert-success">
 
-    <br><br>
+                        <?php
+                        echo htmlspecialchars($success);
+                        ?>
 
-    <button type="submit">
-        Registruj se
-    </button>
+                    </div>
 
-</form>
+                <?php endif; ?>
+
+
+                <form method="POST">
+
+
+                    <div class="mb-3">
+
+                        <label
+                            for="username"
+                            class="form-label"
+                        >
+                            Korisničko ime
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="username"
+                            name="username"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label
+                            for="email"
+                            class="form-label"
+                        >
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            name="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="mb-4">
+
+                        <label
+                            for="password"
+                            class="form-label"
+                        >
+                            Lozinka
+                        </label>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="password"
+                            name="password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-dark w-100"
+                    >
+                        Registruj se
+                    </button>
+
+
+                </form>
+
+
+                <hr>
+
+
+                <div class="text-center">
+
+                    <p class="mb-0">
+
+                        Već imate nalog?
+
+                        <a href="login.php">
+                            Prijavite se
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 

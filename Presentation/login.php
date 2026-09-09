@@ -41,70 +41,97 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <!DOCTYPE html>
+
 <html lang="sr">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <title>TechShop - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>TechShop - Prijava</title>
 
 </head>
 
-<body>
 
-<h1>TechShop</h1>
+<body class="bg-light">
 
-<h2>Prijava</h2>
+    <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
 
-<?php if ($message !== ""): ?>
+        <div class="card shadow" style="width: 100%; max-width: 450px;">
 
-    <p>
-        <?php echo htmlspecialchars($message); ?>
-    </p>
+            <div class="card-body p-4">
 
-<?php endif; ?>
+                <div class="text-center mb-4">
 
+                    <h1 class="h3 fw-bold">
+                        TechShop
+                    </h1>
 
-<form method="POST">
+                    <p class="text-muted">
+                        Prijavite se na svoj nalog
+                    </p>
 
-    <label>Korisničko ime:</label>
+                </div>
 
-    <br>
+                
 
-    <input
-        type="text"
-        name="username"
-        required
-    >
+                <form method="POST">
 
-    <br><br>
+                    <div class="mb-3">
 
+                        <label for="username" class="form-label">
+                            Korisničko ime
+                        </label>
 
-    <label>Lozinka:</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
 
-    <br>
-
-    <input
-        type="password"
-        name="password"
-        required
-    >
-
-    <br><br>
+                    </div>
 
 
-    <button type="submit">
-        Prijavi se
-    </button>
+                    <div class="mb-4">
 
-</form>
+                        <label for="password" class="form-label">
+                            Lozinka
+                        </label>
 
-<br>
+                        <input type="password" class="form-control" id="password" name="password" required>
 
-<a href="registracija.php">
-    Nemate nalog? Registrujte se
-</a>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-dark w-100">
+                        Prijavi se
+                    </button>
+
+                </form>
+
+
+                <hr>
+
+
+                <div class="text-center">
+
+                    <p class="mb-0">
+
+                        Nemate nalog?
+
+                        <a href="registracija.php">
+                            Registrujte se
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 

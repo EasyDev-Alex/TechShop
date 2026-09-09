@@ -22,123 +22,41 @@ $products = $productService->getAllProducts();
 
     <meta charset="UTF-8">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <title>TechShop - Proizvodi</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f5f5f5;
-        }
 
-        header {
-            background-color: #222;
-            color: white;
-            padding: 20px;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 30px auto;
-        }
-
-        .welcome {
-            margin-bottom: 25px;
-        }
-
-        .products {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .product {
-            background-color: white;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .product h3 {
-            margin-top: 0;
-        }
-
-        .category {
-            color: #777;
-            font-size: 14px;
-        }
-
-        .description {
-            min-height: 50px;
-        }
-
-        .price {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 15px 0;
-        }
-
-        button {
-            background-color: #222;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background-color: #444;
-        }
-
-        .navigation {
-            margin-bottom: 25px;
-        }
-
-        .navigation a {
-            margin-right: 15px;
-        }
-    </style>
 
 </head>
 
 <body>
 
-    <header>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
 
-        <h1>TechShop</h1>
+        <div class="container">
 
-    </header>
+            <a class="navbar-brand fw-bold" href="proizvodi.php">
+                TechShop
+            </a>
 
-    <div class="container">
+            <div class="navbar-nav ms-auto">
 
-        <div class="welcome">
-
-            <h2>
-                Dobrodošao,
-                <?php echo htmlspecialchars($_SESSION["username"]); ?>!
-            </h2>
-
-            <div class="navigation">
-
-                <a href="proizvodi.php">
+                <a class="nav-link active" href="proizvodi.php">
                     Proizvodi
                 </a>
 
-                <a href="korpa.php">
-                    Korpa
+                <a class="nav-link" href="korpa.php">
+                    🛒 Korpa
                 </a>
 
-                <a href="moje_porudzbine.php">
+                <a class="nav-link" href="moje_porudzbine.php">
                     Moje porudžbine
                 </a>
 
-                <a href="logout.php">
+                <a class="nav-link" href="logout.php">
                     Odjavi se
                 </a>
 
@@ -146,66 +64,146 @@ $products = $productService->getAllProducts();
 
         </div>
 
-        <h2>Naši proizvodi</h2>
+    </nav>
 
-        <div class="products">
+    <div class="container">
 
-            <?php foreach ($products as $product): ?>
+        <div class="py-4">
 
-                <div class="product">
+            <h2 class="mb-1">
+                Dobrodošao,
+                <?php echo htmlspecialchars($_SESSION["username"]); ?>!
+            </h2>
 
-                    <h3>
-                        <?php echo htmlspecialchars($product["name"]); ?>
-                    </h3>
+            <p class="text-muted">
+                Pogledaj našu ponudu računara, komponenti i elektronike.
+            </p>
 
-                    <p class="category">
+        </div>
 
-                        Kategorija:
+        <h2 class="mb-4">
+            Naši proizvodi
+        </h2>
+
+        <div class="row g-4">
+
+    <?php foreach ($products as $product): ?>
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 shadow-sm">
+
+                <?php if (!empty($product["image"])): ?>
+
+                    <img
+                        src="../assets/images/<?php echo htmlspecialchars($product["image"]); ?>"
+                        class="card-img-top p-3"
+                        style="height: 220px; object-fit: contain;"
+                        alt="<?php echo htmlspecialchars($product["name"]); ?>"
+                    >
+
+                <?php else: ?>
+
+                    <div
+                        class="d-flex align-items-center justify-content-center bg-light"
+                        style="height: 220px;"
+                    >
+                        <span class="text-muted">
+                            Nema slike
+                        </span>
+                    </div>
+
+                <?php endif; ?>
+
+
+                <div class="card-body d-flex flex-column">
+
+                    <h5 class="card-title">
+
                         <?php
                         echo htmlspecialchars(
-                            $product["category_name"] ?? "Bez kategorije"
+                            $product["name"]
+                        );
+                        ?>
+
+                    </h5>
+
+
+                    <p class="text-muted small mb-2">
+
+                        Kategorija:
+
+                        <?php
+                        echo htmlspecialchars(
+                            $product["category_name"]
+                            ?? "Bez kategorije"
                         );
                         ?>
 
                     </p>
 
-                    <p class="description">
+
+                    <p class="card-text">
 
                         <?php
-                        echo htmlspecialchars($product["description"]);
-                        ?>
-
-                    </p>
-
-                    <p class="price">
-
-                        <?php
-                        echo number_format(
-                            $product["price"],
-                            2,
-                            ",",
-                            "."
+                        echo htmlspecialchars(
+                            $product["description"]
                         );
                         ?>
-                        RSD
 
                     </p>
 
-                    <form method="POST" action="dodaj_u_korpu.php">
 
-                        <input type="hidden" name="product_id" value="<?php echo $product["id"]; ?>">
+                    <div class="mt-auto">
 
-                        <button type="submit">
-                            Dodaj u korpu
-                        </button>
+                        <p class="fs-4 fw-bold mb-3">
 
-                    </form>
+                            <?php
+                            echo number_format(
+                                $product["price"],
+                                2,
+                                ",",
+                                "."
+                            );
+                            ?>
+
+                            RSD
+
+                        </p>
+
+
+                        <form
+                            method="POST"
+                            action="dodaj_u_korpu.php"
+                        >
+
+                            <input
+                                type="hidden"
+                                name="product_id"
+                                value="<?php echo $product["id"]; ?>"
+                            >
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-dark w-100"
+                            >
+                                🛒 Dodaj u korpu
+                            </button>
+
+                        </form>
+
+                    </div>
 
                 </div>
 
-            <?php endforeach; ?>
+            </div>
 
         </div>
+
+    <?php endforeach; ?>
+
+</div>
 
     </div>
 
