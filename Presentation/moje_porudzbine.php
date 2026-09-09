@@ -18,149 +18,130 @@ $orders = $orderService->getOrdersByUserId(
 ?>
 
 <!DOCTYPE html>
+
 <html lang="sr">
 
 <head>
 
     <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
     <title>TechShop - Moje porudžbine</title>
-
-    <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f5f5f5;
-        }
-
-        header {
-            background-color: #222;
-            color: white;
-            padding: 20px;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 30px auto;
-        }
-
-        .navigation {
-            margin-bottom: 25px;
-        }
-
-        .navigation a {
-            margin-right: 15px;
-        }
-
-        .order {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .order-header {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-        }
-
-        .order-number {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
-
-        .total {
-            text-align: right;
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-
-        .empty {
-            background-color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-    </style>
 
 </head>
 
-<body>
 
-<header>
+<body class="bg-light">
 
-    <h1>TechShop</h1>
 
-</header>
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
 
-<div class="container">
+    <div class="container">
 
-    <div class="navigation">
-
-        <a href="proizvodi.php">
-            Proizvodi
+        <a
+            class="navbar-brand fw-bold"
+            href="proizvodi.php"
+        >
+            TechShop
         </a>
 
-        <a href="korpa.php">
-            Korpa
-        </a>
 
-        <a href="moje_porudzbine.php">
-            Moje porudžbine
-        </a>
+        <div class="navbar-nav ms-auto">
 
-        <a href="logout.php">
-            Odjavi se
-        </a>
+            <a
+                class="nav-link"
+                href="proizvodi.php"
+            >
+                Proizvodi
+            </a>
 
-    </div>
+            <a
+                class="nav-link"
+                href="korpa.php"
+            >
+                🛒 Korpa
+            </a>
 
-    <h2>
-        Moje porudžbine
-    </h2>
+            <a
+                class="nav-link active"
+                href="moje_porudzbine.php"
+            >
+                Moje porudžbine
+            </a>
 
-    <?php if (empty($orders)): ?>
-
-        <div class="empty">
-
-            <h3>Nemate nijednu porudžbinu.</h3>
-
-            <p>
-                Kada izvršite kupovinu, ona će se pojaviti ovde.
-            </p>
-
-            <a href="proizvodi.php">
-                Pogledaj proizvode
+            <a
+                class="nav-link"
+                href="logout.php"
+            >
+                Odjavi se
             </a>
 
         </div>
 
+    </div>
+
+</nav>
+
+
+<div class="container py-5">
+
+
+    <div class="mb-4">
+
+        <h1 class="h2">
+            Moje porudžbine
+        </h1>
+
+        <p class="text-muted">
+            Pregled svih vaših prethodnih porudžbina.
+        </p>
+
+    </div>
+
+
+    <?php if (empty($orders)): ?>
+
+
+        <div class="card shadow-sm">
+
+            <div class="card-body text-center p-5">
+
+                <h3>
+                    Nemate nijednu porudžbinu
+                </h3>
+
+                <p class="text-muted">
+
+                    Kada poručite proizvod, vaša porudžbina će se pojaviti ovde.
+
+                </p>
+
+                <a
+                    href="proizvodi.php"
+                    class="btn btn-dark mt-3"
+                >
+                    Pogledaj proizvode
+                </a>
+
+            </div>
+
+        </div>
+
+
     <?php else: ?>
 
+
         <?php foreach ($orders as $order): ?>
+
 
             <?php
 
@@ -170,133 +151,208 @@ $orders = $orderService->getOrdersByUserId(
 
             ?>
 
-            <div class="order">
 
-                <div class="order-header">
+            <div class="card shadow-sm mb-4">
 
-                    <div class="order-number">
 
-                        Porudžbina
-                        #<?php echo $order["id"]; ?>
-
-                    </div>
+                <div
+                    class="card-header bg-dark text-white d-flex justify-content-between align-items-center"
+                >
 
                     <div>
 
+                        <strong>
+
+                            Porudžbina
+                            #<?php echo $order["id"]; ?>
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="small">
+
                         <?php
+
                         echo date(
                             "d.m.Y. H:i",
                             strtotime($order["order_date"])
                         );
+
                         ?>
 
                     </div>
 
                 </div>
 
-                <table>
 
-                    <tr>
+                <div class="card-body">
 
-                        <th>Proizvod</th>
 
-                        <th>Cena</th>
+                    <div class="table-responsive">
 
-                        <th>Količina</th>
 
-                        <th>Ukupno</th>
+                        <table class="table table-hover align-middle">
 
-                    </tr>
 
-                    <?php foreach ($items as $item): ?>
+                            <thead>
 
-                        <tr>
+                                <tr>
 
-                            <td>
+                                    <th>
+                                        Proizvod
+                                    </th>
 
-                                <?php
-                                echo htmlspecialchars(
-                                    $item["product_name"]
-                                    ?? "Obrisan proizvod"
-                                );
-                                ?>
+                                    <th>
+                                        Cena
+                                    </th>
 
-                            </td>
+                                    <th>
+                                        Količina
+                                    </th>
 
-                            <td>
+                                    <th>
+                                        Ukupno
+                                    </th>
 
-                                <?php
-                                echo number_format(
-                                    $item["price"],
-                                    2,
-                                    ",",
-                                    "."
-                                );
-                                ?>
+                                </tr>
 
-                                RSD
+                            </thead>
 
-                            </td>
 
-                            <td>
+                            <tbody>
 
-                                <?php
-                                echo $item["quantity"];
-                                ?>
 
-                            </td>
+                                <?php foreach ($items as $item): ?>
 
-                            <td>
 
-                                <?php
+                                    <tr>
 
-                                $subtotal =
-                                    $item["price"]
-                                    * $item["quantity"];
 
-                                echo number_format(
-                                    $subtotal,
-                                    2,
-                                    ",",
-                                    "."
-                                );
+                                        <td class="fw-semibold">
 
-                                ?>
+                                            <?php
 
-                                RSD
+                                            echo htmlspecialchars(
+                                                $item["product_name"]
+                                                ?? "Obrisan proizvod"
+                                            );
 
-                            </td>
+                                            ?>
 
-                        </tr>
+                                        </td>
 
-                    <?php endforeach; ?>
 
-                </table>
+                                        <td>
 
-                <div class="total">
+                                            <?php
 
-                    Ukupno:
+                                            echo number_format(
+                                                $item["price"],
+                                                2,
+                                                ",",
+                                                "."
+                                            );
 
-                    <?php
-                    echo number_format(
-                        $order["total_price"],
-                        2,
-                        ",",
-                        "."
-                    );
-                    ?>
+                                            ?>
 
-                    RSD
+                                            RSD
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <?php
+                                            echo $item["quantity"];
+                                            ?>
+
+                                        </td>
+
+
+                                        <td class="fw-semibold">
+
+                                            <?php
+
+                                            $subtotal =
+                                                $item["price"]
+                                                * $item["quantity"];
+
+                                            echo number_format(
+                                                $subtotal,
+                                                2,
+                                                ",",
+                                                "."
+                                            );
+
+                                            ?>
+
+                                            RSD
+
+                                        </td>
+
+
+                                    </tr>
+
+
+                                <?php endforeach; ?>
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
+
+
+                    <div
+                        class="border-top pt-3 text-end"
+                    >
+
+                        <span class="fs-5">
+
+                            Ukupna cena:
+
+                        </span>
+
+
+                        <strong class="fs-4 ms-2">
+
+                            <?php
+
+                            echo number_format(
+                                $order["total_price"],
+                                2,
+                                ",",
+                                "."
+                            );
+
+                            ?>
+
+                            RSD
+
+                        </strong>
+
+                    </div>
+
 
                 </div>
 
+
             </div>
+
 
         <?php endforeach; ?>
 
+
     <?php endif; ?>
 
+
 </div>
+
 
 </body>
 
