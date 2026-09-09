@@ -65,121 +65,303 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <!DOCTYPE html>
+
 <html lang="sr">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <title>Izmeni proizvod</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <title>TechShop - Izmeni proizvod</title>
 
 </head>
 
-<body>
 
-<h1>Izmeni proizvod</h1>
-
-<?php if ($message !== ""): ?>
-
-    <p>
-        <?php echo htmlspecialchars($message); ?>
-    </p>
-
-<?php endif; ?>
+<body class="bg-light">
 
 
-<form method="POST">
+<nav class="navbar navbar-dark bg-dark">
 
-    <label>Naziv proizvoda:</label>
-    <br>
+    <div class="container">
 
-    <input
-        type="text"
-        name="name"
-        value="<?php echo htmlspecialchars($product["name"]); ?>"
-        required
-    >
-
-    <br><br>
+        <a
+            class="navbar-brand fw-bold"
+            href="dashboard.php"
+        >
+            🛠️ TechShop Admin
+        </a>
 
 
-    <label>Opis:</label>
-    <br>
+        <div class="navbar-nav flex-row gap-3">
 
-    <textarea
-        name="description"
-        rows="5"
-        cols="40"
-    ><?php echo htmlspecialchars($product["description"]); ?></textarea>
-
-    <br><br>
-
-
-    <label>Cena:</label>
-    <br>
-
-    <input
-        type="number"
-        name="price"
-        step="0.01"
-        min="0"
-        value="<?php echo $product["price"]; ?>"
-        required
-    >
-
-    <br><br>
-
-
-    <label>Kategorija:</label>
-    <br>
-
-    <select name="category_id" required>
-
-        <?php foreach ($categories as $category): ?>
-
-            <option
-                value="<?php echo $category["id"]; ?>"
-                <?php
-                if ($category["id"] == $product["category_id"]) {
-                    echo "selected";
-                }
-                ?>
+            <a
+                class="nav-link"
+                href="dashboard.php"
             >
+                Proizvodi
+            </a>
 
-                <?php echo htmlspecialchars($category["name"]); ?>
+            <a
+                class="nav-link"
+                href="porudzbine.php"
+            >
+                Porudžbine
+            </a>
 
-            </option>
+            <a
+                class="nav-link"
+                href="../proizvodi.php"
+            >
+                Prodavnica
+            </a>
 
-        <?php endforeach; ?>
+            <a
+                class="nav-link"
+                href="../logout.php"
+            >
+                Odjavi se
+            </a>
 
-    </select>
+        </div>
 
-    <br><br>
+    </div>
 
-
-    <label>Slika:</label>
-    <br>
-
-    <input
-        type="text"
-        name="image"
-        value="<?php echo htmlspecialchars($product["image"] ?? ""); ?>"
-    >
-
-    <br><br>
+</nav>
 
 
-    <button type="submit">
-        Sačuvaj izmene
-    </button>
+<div class="container py-5">
 
-</form>
 
-<br>
+    <div class="row justify-content-center">
 
-<a href="dashboard.php">
-    Nazad na admin panel
-</a>
+        <div class="col-lg-8">
+
+
+            <div class="mb-4">
+
+                <h1 class="h2">
+                    Izmeni proizvod
+                </h1>
+
+                <p class="text-muted">
+                    Izmenite podatke o proizvodu.
+                </p>
+
+            </div>
+
+
+            <?php if (!empty($message)): ?>
+
+                <div class="alert alert-info">
+
+                    <?php
+                    echo htmlspecialchars($message);
+                    ?>
+
+                </div>
+
+            <?php endif; ?>
+
+
+            <div class="card shadow-sm">
+
+
+                <div class="card-body p-4">
+
+
+                    <form method="POST">
+
+
+                        <div class="mb-3">
+
+                            <label
+                                for="name"
+                                class="form-label"
+                            >
+                                Naziv proizvoda
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                value="<?php echo htmlspecialchars($product["name"]); ?>"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label
+                                for="description"
+                                class="form-label"
+                            >
+                                Opis proizvoda
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="description"
+                                name="description"
+                                rows="4"
+                            ><?php echo htmlspecialchars($product["description"]); ?></textarea>
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label
+                                for="price"
+                                class="form-label"
+                            >
+                                Cena
+                            </label>
+
+                            <div class="input-group">
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="price"
+                                    name="price"
+                                    value="<?php echo htmlspecialchars($product["price"]); ?>"
+                                    step="0.01"
+                                    min="0.01"
+                                    required
+                                >
+
+                                <span class="input-group-text">
+                                    RSD
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label
+                                for="category_id"
+                                class="form-label"
+                            >
+                                Kategorija
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="category_id"
+                                name="category_id"
+                                required
+                            >
+
+                                <?php foreach ($categories as $category): ?>
+
+                                    <option
+                                        value="<?php echo $category["id"]; ?>"
+                                        <?php
+                                        if (
+                                            $category["id"]
+                                            == $product["category_id"]
+                                        ) {
+                                            echo "selected";
+                                        }
+                                        ?>
+                                    >
+
+                                        <?php
+                                        echo htmlspecialchars(
+                                            $category["name"]
+                                        );
+                                        ?>
+
+                                    </option>
+
+                                <?php endforeach; ?>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <label
+                                for="image"
+                                class="form-label"
+                            >
+                                Naziv slike
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="image"
+                                name="image"
+                                value="<?php echo htmlspecialchars($product["image"] ?? ""); ?>"
+                            >
+
+                            <div class="form-text">
+
+                                Slika treba da se nalazi u
+                                <code>assets/images</code> folderu.
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="d-flex justify-content-between">
+
+
+                            <a
+                                href="dashboard.php"
+                                class="btn btn-outline-secondary"
+                            >
+                                ← Nazad
+                            </a>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+                                Sačuvaj izmene
+                            </button>
+
+
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
 
 </body>
 

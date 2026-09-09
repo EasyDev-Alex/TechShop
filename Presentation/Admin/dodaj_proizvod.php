@@ -49,116 +49,299 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <!DOCTYPE html>
+
 <html lang="sr">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <title>Dodaj proizvod</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <title>TechShop - Dodaj proizvod</title>
 
 </head>
 
-<body>
 
-<h1>Dodaj novi proizvod</h1>
-
-<?php if ($message !== ""): ?>
-
-    <p>
-        <?php echo htmlspecialchars($message); ?>
-    </p>
-
-<?php endif; ?>
+<body class="bg-light">
 
 
-<form method="POST">
+<nav class="navbar navbar-dark bg-dark">
 
-    <label>Naziv proizvoda:</label>
-    <br>
+    <div class="container">
 
-    <input
-        type="text"
-        name="name"
-        required
-    >
-
-    <br><br>
+        <a
+            class="navbar-brand fw-bold"
+            href="dashboard.php"
+        >
+            🛠️ TechShop Admin
+        </a>
 
 
-    <label>Opis:</label>
-    <br>
+        <div class="navbar-nav flex-row gap-3">
 
-    <textarea
-        name="description"
-        rows="5"
-        cols="40"
-    ></textarea>
+            <a
+                class="nav-link"
+                href="dashboard.php"
+            >
+                Proizvodi
+            </a>
 
-    <br><br>
+            <a
+                class="nav-link"
+                href="porudzbine.php"
+            >
+                Porudžbine
+            </a>
 
+            <a
+                class="nav-link"
+                href="../proizvodi.php"
+            >
+                Prodavnica
+            </a>
 
-    <label>Cena:</label>
-    <br>
+            <a
+                class="nav-link"
+                href="../logout.php"
+            >
+                Odjavi se
+            </a>
 
-    <input
-        type="number"
-        name="price"
-        step="0.01"
-        min="0"
-        required
-    >
+        </div>
 
-    <br><br>
+    </div>
 
-
-    <label>Kategorija:</label>
-    <br>
-
-    <select name="category_id" required>
-
-        <option value="">
-            -- Izaberite kategoriju --
-        </option>
-
-        <?php foreach ($categories as $category): ?>
-
-            <option value="<?php echo $category["id"]; ?>">
-
-                <?php echo htmlspecialchars($category["name"]); ?>
-
-            </option>
-
-        <?php endforeach; ?>
-
-    </select>
-
-    <br><br>
+</nav>
 
 
-    <label>Slika:</label>
-    <br>
-
-    <input
-        type="text"
-        name="image"
-        placeholder="npr. rtx4060.jpg"
-    >
-
-    <br><br>
+<div class="container py-5">
 
 
-    <button type="submit">
-        Dodaj proizvod
-    </button>
+    <div class="row justify-content-center">
 
-</form>
+        <div class="col-lg-8">
 
-<br>
 
-<a href="dashboard.php">
-    Nazad na admin panel
-</a>
+            <div class="mb-4">
+
+                <h1 class="h2">
+                    Dodaj novi proizvod
+                </h1>
+
+                <p class="text-muted">
+                    Unesite podatke o novom proizvodu.
+                </p>
+
+            </div>
+
+
+            <?php if (!empty($message)): ?>
+
+                <div class="alert alert-info">
+
+                    <?php
+                    echo htmlspecialchars($message);
+                    ?>
+
+                </div>
+
+            <?php endif; ?>
+
+
+            <div class="card shadow-sm">
+
+
+                <div class="card-body p-4">
+
+
+                    <form method="POST">
+
+
+                        <div class="mb-3">
+
+                            <label
+                                for="name"
+                                class="form-label"
+                            >
+                                Naziv proizvoda
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label
+                                for="description"
+                                class="form-label"
+                            >
+                                Opis proizvoda
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="description"
+                                name="description"
+                                rows="4"
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label
+                                for="price"
+                                class="form-label"
+                            >
+                                Cena
+                            </label>
+
+                            <div class="input-group">
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="price"
+                                    name="price"
+                                    step="0.01"
+                                    min="0.01"
+                                    required
+                                >
+
+                                <span class="input-group-text">
+                                    RSD
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label
+                                for="category_id"
+                                class="form-label"
+                            >
+                                Kategorija
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="category_id"
+                                name="category_id"
+                                required
+                            >
+
+                                <option value="">
+                                    -- Izaberite kategoriju --
+                                </option>
+
+
+                                <?php foreach ($categories as $category): ?>
+
+                                    <option
+                                        value="<?php echo $category["id"]; ?>"
+                                    >
+
+                                        <?php
+                                        echo htmlspecialchars(
+                                            $category["name"]
+                                        );
+                                        ?>
+
+                                    </option>
+
+                                <?php endforeach; ?>
+
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <label
+                                for="image"
+                                class="form-label"
+                            >
+                                Naziv slike
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="image"
+                                name="image"
+                                placeholder="npr. rtx4060.jpg"
+                            >
+
+                            <div class="form-text">
+
+                                Unesite naziv slike koja se nalazi u
+                                <code>assets/images</code> folderu.
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="d-flex justify-content-between">
+
+
+                            <a
+                                href="dashboard.php"
+                                class="btn btn-outline-secondary"
+                            >
+                                ← Nazad
+                            </a>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-success"
+                            >
+                                + Dodaj proizvod
+                            </button>
+
+
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
 
 </body>
 
