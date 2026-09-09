@@ -12,16 +12,9 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "admin") {
 
 $message = "";
 
-$database = new Database();
-$connection = $database->getConnection();
+$categoryService = new CategoryService();
 
-$statement = $connection->prepare(
-    "SELECT * FROM categories ORDER BY name"
-);
-
-$statement->execute();
-
-$categories = $statement->fetchAll(PDO::FETCH_ASSOC);
+$categories = $categoryService->getAllCategories();
 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

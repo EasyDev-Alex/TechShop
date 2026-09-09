@@ -3,7 +3,7 @@
 session_start();
 
 require_once __DIR__ . "/../../business/ProductService.php";
-require_once __DIR__ . "/../../data/Database.php";
+require_once __DIR__ . "/../../business/CategoryService.php";
 
 if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "admin") {
     header("Location: ../login.php");
@@ -26,16 +26,9 @@ if ($product === false) {
 }
 
 
-$database = new Database();
-$connection = $database->getConnection();
+$categoryService = new CategoryService();
 
-$statement = $connection->prepare(
-    "SELECT * FROM categories ORDER BY name"
-);
-
-$statement->execute();
-
-$categories = $statement->fetchAll(PDO::FETCH_ASSOC);
+$categories = $categoryService->getAllCategories();
 
 
 $message = "";
