@@ -23,15 +23,9 @@ $products = $productService->getAllProducts();
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <title>TechShop - Admin panel</title>
 
@@ -41,326 +35,303 @@ $products = $productService->getAllProducts();
 <body class="bg-light">
 
 
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
 
-    <div class="container">
-
-
-        <a
-            class="navbar-brand fw-bold"
-            href="dashboard.php"
-        >
-            🛠️ TechShop Admin
-        </a>
+        <div class="container">
 
 
-        <div class="navbar-nav ms-auto">
-
-
-            <a
-                class="nav-link active"
-                href="dashboard.php"
-            >
-                Proizvodi
+            <a class="navbar-brand fw-bold" href="dashboard.php">
+                🛠️ TechShop Admin
             </a>
 
 
-            <a
-                class="nav-link"
-                href="porudzbine.php"
-            >
-                Porudžbine
-            </a>
+            <div class="navbar-nav ms-auto">
 
 
-            <a
-                class="nav-link"
-                href="../proizvodi.php"
-            >
-                Prodavnica
-            </a>
+                <a class="nav-link active" href="dashboard.php">
+                    Proizvodi
+                </a>
 
 
-            <a
-                class="nav-link"
-                href="../logout.php"
-            >
-                Odjavi se
-            </a>
+                <a class="nav-link" href="porudzbine.php">
+                    Porudžbine
+                </a>
 
 
-        </div>
+                <a class="nav-link" href="../proizvodi.php">
+                    Prodavnica
+                </a>
 
 
-    </div>
-
-</nav>
-
-
-<div class="container py-5">
-
-
-    <div
-        class="d-flex justify-content-between align-items-center mb-4"
-    >
-
-
-        <div>
-
-            <h1 class="h2 mb-1">
-
-                Upravljanje proizvodima
-
-            </h1>
-
-
-            <p class="text-muted mb-0">
-
-                Dodavanje, izmena i brisanje proizvoda.
-
-            </p>
-
-        </div>
-
-
-        <a
-            href="dodaj_proizvod.php"
-            class="btn btn-success"
-        >
-            + Dodaj proizvod
-        </a>
-
-
-    </div>
-
-
-    <?php if (empty($products)): ?>
-
-
-        <div class="card shadow-sm">
-
-            <div class="card-body text-center p-5">
-
-
-                <h3>
-                    Nema proizvoda
-                </h3>
-
-
-                <p class="text-muted">
-
-                    Trenutno nema proizvoda u prodavnici.
-
-                </p>
-
-
-                <a
-                    href="dodaj_proizvod.php"
-                    class="btn btn-dark"
-                >
-                    Dodaj prvi proizvod
+                <a class="nav-link" href="../logout.php">
+                    Odjavi se
                 </a>
 
 
             </div>
 
+
+        </div>
+
+    </nav>
+
+
+    <div class="container py-5">
+
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+
+            <div>
+
+                <h1 class="h2 mb-1">
+
+                    Upravljanje proizvodima
+
+                </h1>
+
+
+                <p class="text-muted mb-0">
+
+                    Dodavanje, izmena i brisanje proizvoda.
+
+                </p>
+
+            </div>
+
+
+            <a href="dodaj_proizvod.php" class="btn btn-success">
+                + Dodaj proizvod
+            </a>
+
+
         </div>
 
 
-    <?php else: ?>
+        <?php if (empty($products)): ?>
 
 
-        <div class="card shadow-sm">
+            <div class="card shadow-sm">
+
+                <div class="card-body text-center p-5">
 
 
-            <div class="card-body p-0">
+                    <h3>
+                        Nema proizvoda
+                    </h3>
 
 
-                <div class="table-responsive">
+                    <p class="text-muted">
+
+                        Trenutno nema proizvoda u prodavnici.
+
+                    </p>
 
 
-                    <table
-                        class="table table-hover align-middle mb-0"
-                    >
+                    <a href="dodaj_proizvod.php" class="btn btn-dark">
+                        Dodaj prvi proizvod
+                    </a>
 
 
-                        <thead class="table-dark">
+                </div>
+
+            </div>
 
 
-                            <tr>
+        <?php else: ?>
 
 
-                                <th>
-                                    ID
-                                </th>
+            <div class="card shadow-sm">
 
 
-                                <th>
-                                    Proizvod
-                                </th>
+                <div class="card-body p-0">
 
 
-                                <th>
-                                    Kategorija
-                                </th>
+                    <div class="table-responsive">
 
 
-                                <th>
-                                    Cena
-                                </th>
+                        <table class="table table-hover align-middle mb-0">
 
 
-                                <th>
-                                    Slika
-                                </th>
-
-
-                                <th>
-                                    Akcije
-                                </th>
-
-
-                            </tr>
-
-
-                        </thead>
-
-
-                        <tbody>
-
-
-                            <?php foreach ($products as $product): ?>
+                            <thead class="table-dark">
 
 
                                 <tr>
 
 
-                                    <td>
-
-                                        <?php
-                                        echo $product["id"];
-                                        ?>
-
-                                    </td>
+                                    <th>
+                                        ID
+                                    </th>
 
 
-                                    <td class="fw-semibold">
-
-                                        <?php
-
-                                        echo htmlspecialchars(
-                                            $product["name"]
-                                        );
-
-                                        ?>
-
-                                    </td>
+                                    <th>
+                                        Proizvod
+                                    </th>
 
 
-                                    <td>
+                                    <th>
+                                        Kategorija
+                                    </th>
 
 
-                                        <?php
-
-                                        echo htmlspecialchars(
-                                            $product["category_name"]
-                                            ?? "Bez kategorije"
-                                        );
-
-                                        ?>
+                                    <th>
+                                        Cena
+                                    </th>
 
 
-                                    </td>
+                                    <th>
+                                        Slika
+                                    </th>
 
 
-                                    <td class="fw-semibold">
-
-
-                                        <?php
-
-                                        echo number_format(
-                                            $product["price"],
-                                            2,
-                                            ",",
-                                            "."
-                                        );
-
-                                        ?>
-
-                                        RSD
-
-
-                                    </td>
-
-
-                                    <td>
-
-
-                                        <?php if (!empty($product["image"])): ?>
-
-
-                                            <img
-                                                src="../../assets/images/<?php echo htmlspecialchars($product["image"]); ?>"
-                                                alt="<?php echo htmlspecialchars($product["name"]); ?>"
-                                                style="width: 60px; height: 60px; object-fit: contain;"
-                                            >
-
-
-                                        <?php else: ?>
-
-
-                                            <span class="text-muted">
-
-                                                Nema slike
-
-                                            </span>
-
-
-                                        <?php endif; ?>
-
-
-                                    </td>
-
-
-                                    <td>
-
-
-                                        <div class="d-flex gap-2">
-
-
-                                            <a
-                                                href="izmeni_proizvod.php?id=<?php echo $product["id"]; ?>"
-                                                class="btn btn-outline-primary btn-sm"
-                                            >
-                                                Izmeni
-                                            </a>
-
-
-                                            <a
-                                                href="obrisi_proizvod.php?id=<?php echo $product["id"]; ?>"
-                                                class="btn btn-outline-danger btn-sm"
-                                                onclick="return confirm('Da li ste sigurni da želite da obrišete ovaj proizvod?');"
-                                            >
-                                                Obriši
-                                            </a>
-
-
-                                        </div>
-
-
-                                    </td>
+                                    <th>
+                                        Akcije
+                                    </th>
 
 
                                 </tr>
 
 
-                            <?php endforeach; ?>
+                            </thead>
 
 
-                        </tbody>
+                            <tbody>
 
 
-                    </table>
+                                <?php foreach ($products as $product): ?>
+
+
+                                    <tr>
+
+
+                                        <td>
+
+                                            <?php
+                                            echo $product["id"];
+                                            ?>
+
+                                        </td>
+
+
+                                        <td class="fw-semibold">
+
+                                            <?php
+
+                                            echo htmlspecialchars(
+                                                $product["name"]
+                                            );
+
+                                            ?>
+
+                                        </td>
+
+
+                                        <td>
+
+
+                                            <?php
+
+                                            echo htmlspecialchars(
+                                                $product["category_name"]
+                                                ?? "Bez kategorije"
+                                            );
+
+                                            ?>
+
+
+                                        </td>
+
+
+                                        <td class="fw-semibold">
+
+
+                                            <?php
+
+                                            echo number_format(
+                                                $product["price"],
+                                                2,
+                                                ",",
+                                                "."
+                                            );
+
+                                            ?>
+
+                                            RSD
+
+
+                                        </td>
+
+
+                                        <td>
+
+
+                                            <?php if (!empty($product["image"])): ?>
+
+
+                                                <img src="../../assets/images/<?php echo htmlspecialchars($product["image"]); ?>"
+                                                    alt="<?php echo htmlspecialchars($product["name"]); ?>"
+                                                    style="width: 60px; height: 60px; object-fit: contain;">
+
+
+                                            <?php else: ?>
+
+
+                                                <span class="text-muted">
+
+                                                    Nema slike
+
+                                                </span>
+
+
+                                            <?php endif; ?>
+
+
+                                        </td>
+
+
+                                        <td>
+
+
+                                            <div class="d-flex gap-2">
+
+
+                                                <a href="izmeni_proizvod.php?id=<?php echo $product["id"]; ?>"
+                                                    class="btn btn-outline-primary btn-sm">
+                                                    Izmeni
+                                                </a>
+
+
+                                                <form method="POST" action="obrisi_proizvod.php"
+                                                    onsubmit="return confirm('Da li ste sigurni da želite da obrišete ovaj proizvod?');">
+
+                                                    <input type="hidden" name="id" value="<?php echo $product["id"]; ?>">
+
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                        Obriši
+                                                    </button>
+
+                                                </form>
+
+
+                                            </div>
+
+
+                                        </td>
+
+
+                                    </tr>
+
+
+                                <?php endforeach; ?>
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
 
 
                 </div>
@@ -369,13 +340,10 @@ $products = $productService->getAllProducts();
             </div>
 
 
-        </div>
+        <?php endif; ?>
 
 
-    <?php endif; ?>
-
-
-</div>
+    </div>
 
 
 </body>
