@@ -1,0 +1,31 @@
+          USER
+           │
+           ▼
+┌──────────────────────┐
+│  PRESENTATION LAYER  │
+│                      │
+│ index.php            │
+│ login.php            │
+│ korpa.php            │
+└───────────┬──────────┘
+            │
+            ▼
+┌──────────────────────┐
+│   BUSINESS LAYER     │
+│                      │
+│ ProductService       │
+│ UserService          │
+│ CartService          │
+└───────────┬──────────┘
+            │
+            ▼
+┌──────────────────────┐
+│     DATA LAYER       │
+│                      │
+│ ProductRepository    │
+│ UserRepository       │
+│ Database             │
+└───────────┬──────────┘
+            │
+            ▼
+      MYSQL DATABASE
